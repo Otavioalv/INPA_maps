@@ -2,29 +2,79 @@ import type { MarkerOptions, LngLatLike} from 'maplibre-gl';
 
 import {Marker, Popup, Map} from 'maplibre-gl';
 
-// classe Map
-// cor/icone
-// lat lon
-// função handle para evendo de click
 
 export type addMakerType = {
-    map: Map
-    options: MarkerOptions
-    lnglat: LngLatLike
+    map: Map;
+    markerOptions: MarkerOptions;
+    lnglat: LngLatLike;
+    callMarker: () => void;
 }
 
-export function addMarker(map: Map) {
+/* 
+    "map": map
+    "Makers": 
+        "Predio-1":
+            {
+                callMarker: test,
+                lnglat: [-59.98707599957745, -3.0965178354433376],
+                markerOptions: { color: 'red' },
+            },
+        "Predio-2":
+            {
+                callMarker: test,
+                lnglat: [-59.98707599957745, -3.0965178354433376],
+                markerOptions: { color: 'red' },
+            },
+        "Predio-3":
+            {
+                callMarker: test,
+                lnglat: [-59.98707599957745, -3.0965178354433376],
+                markerOptions: { color: 'red' },
+            },
+
+*/
+
+
+
+export type addMakerTypeT = {
+    map: Map;
     
-    const marker = new Marker({ color: 'red' })
-    .setLngLat([-59.98707599957745, -3.0965178354433376])
+    
+    markerOptions: MarkerOptions;
+    lnglat: LngLatLike;
+    callMarker: () => void;
+}
+
+export function addMarker({map, markerOptions, lnglat, callMarker}: addMakerType) {
+    const popUpHTML = `
+        <h1>Prédio X</h1>
+        <p>Switches: 4</p>
+    `;
+    
+    const marker = new Marker(markerOptions)
+    .setLngLat(lnglat)
     .setPopup(
         new Popup({ offset: 15 })
-        .setHTML("<h1>Prédio X</h1><p>Switches: 4</p>")
+        .setHTML(popUpHTML)
     )
     .addTo(map);
 
-    marker.getElement().addEventListener('click', () => {
-        console.log('Clicou no prédio X');
-        // Abrir modal
-    });
+
+    new Marker(markerOptions)
+    .setLngLat([-59.98717599957745, -3.0965178354433376])
+    .setPopup(
+        new Popup({ offset: 15 })
+        .setHTML(popUpHTML)
+    )
+    .addTo(map);
+
+
+    /* 
+        marker.getElement().addEventListener('click', () => {
+            console.log('Clicou no prédio X');
+            // Abrir modal
+        });
+    */
+
+    marker.getElement().addEventListener('click', () => callMarker());
 }

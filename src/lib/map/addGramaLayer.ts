@@ -1,57 +1,49 @@
 import {Map} from 'maplibre-gl'
 
-export function addGramaLayer(map: Map) {
-    map.addSource('grama', {
-        type: 'geojson',
-        data: {
-            type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [[
-                        [-59.989857, -3.094646],
-                        [-59.989699, -3.094804],
-                        [-59.989509, -3.095093],
-                        [-59.989190, -3.095637],
-                        [-59.988613, -3.096628],
-                        [-59.988291, -3.097121],
-                        [-59.9879484101266, -3.097695069642971],
-                        [-59.988258205259875, -3.0978025360163963],
-                        [-59.98870613417039, -3.097837353780204],
-                        [-59.98877587160558, -3.0978962761471305],
-                        [-59.98896630844651, -3.097888241281464],
-                        [-59.98904945692691, -3.0981560701827013],
-                        [-59.98991849265389, -3.098198922804275],
-                        [-59.98994328099492, -3.0983397425938795],
-                        [-59.99008275586526, -3.0983276902968746],
-                        [-59.99020747858566, -3.098524544466257],
-                        [-59.990271851602735, -3.0984790135736677],
-                        [-59.990160539928375, -3.0982232370492033],
-                        [-59.98975284415206, -3.0972597223057106],
-                        [-59.99006398040129, -3.0972168696497873],
-                        [-59.990482405012315, -3.097725744826898],
-                        [-59.99067552406357, -3.097757884303558],
-                        [-59.99154455979416, -3.097618613230987],
-                        [-59.99230094274142, -3.0974097065839565],
-                        [-59.991903975804945, -3.096863335161088],
-                        [-59.99156601746526, -3.096488374222605],
-                        [-59.99074526150277, -3.0955670410505682],
-                        [-59.989857, -3.094646] // fecha o polígono
-                    ],]
-                },
-                properties: {}
-            }]
-        }
-    })
 
-    map.addLayer({
-        id: "grama-layer",
-        type: "fill",
-        source: "grama",
-        paint: {
-            'fill-color': "#5cb85c",
-            'fill-opacity': .5
-        }
+export interface cordGramInterface {
+    [k: string]: number[][]
+}
+
+export type addGramaLayerType = {
+    map: Map, 
+    cordGram: cordGramInterface
+};
+
+
+export function addGramaLayer({map, cordGram}: addGramaLayerType) {
+    // Criar um laço que percorra cordGram e coloque as cordenadas
+
+    Object.entries(cordGram).forEach((crd,i) => {
+
+        const idSource = `${crd[0]}-${i}`
+        const idLayer  = `${crd[0]}-layer-${i}`
+
+        map.addSource(idSource, {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: [{
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [crd[1]]
+                    },
+                    properties: {}
+                }]
+            }
+        });
+
+
+        map.addLayer({
+            id: idLayer,
+            type: "fill",
+            source: idSource,
+            paint: {
+                'fill-color': "#5cb85c",
+                'fill-opacity': .5
+            }
+        });
+
     });
 }
