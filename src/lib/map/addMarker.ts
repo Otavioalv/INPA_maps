@@ -12,7 +12,7 @@ export type addMakerType = {
 
 /* 
     "map": map
-    "Makers": 
+    "Makers": [
         "Predio-1":
             {
                 callMarker: test,
@@ -31,19 +31,22 @@ export type addMakerType = {
                 lnglat: [-59.98707599957745, -3.0965178354433376],
                 markerOptions: { color: 'red' },
             },
+    ]
 
 */
 
 
+export type makerType = {
+    callMaker: () => void;
+    lnglat: LngLatLike;
+    makerOptions: MarkerOptions;
+};
 
 export type addMakerTypeT = {
     map: Map;
-    
-    
-    markerOptions: MarkerOptions;
-    lnglat: LngLatLike;
-    callMarker: () => void;
-}
+    makers: {[k: string]: makerType}[];
+
+};
 
 export function addMarker({map, markerOptions, lnglat, callMarker}: addMakerType) {
     const popUpHTML = `
@@ -60,13 +63,13 @@ export function addMarker({map, markerOptions, lnglat, callMarker}: addMakerType
     .addTo(map);
 
 
-    new Marker(markerOptions)
-    .setLngLat([-59.98717599957745, -3.0965178354433376])
-    .setPopup(
-        new Popup({ offset: 15 })
-        .setHTML(popUpHTML)
-    )
-    .addTo(map);
+    // new Marker(markerOptions)
+    // .setLngLat([-59.98717599957745, -3.0965178354433376])
+    // .setPopup(
+    //     new Popup({ offset: 15 })
+    //     .setHTML(popUpHTML)
+    // )
+    // .addTo(map);
 
 
     /* 
