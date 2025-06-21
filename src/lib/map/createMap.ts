@@ -23,12 +23,29 @@ export function createMap(options: MapOptions) {
         // Abrir modal
     }
 
+    // makers: {[k: string]: makerType}[];
     const markerParams: addMakerType = {
-        callMarker: test,
-        lnglat: [-59.98707599957745, -3.0965178354433376],
-        markerOptions: { color: 'red' },
-        map: map
+        map: map,
+        markers: {
+                "impa-loc1": {
+                    callMarker: test,
+                    lnglat: [-59.98707599957745, -3.0965178354433376],
+                    markerOptions: { color: 'red' },
+                }, 
+                "impa-loc2": {
+                    callMarker: test,
+                    lnglat: [-59.96707599957745, -3.0965178354433376],
+                    markerOptions: { color: 'blue' },
+                },
+                "impa-loc3": {
+                    callMarker: test,
+                    lnglat: [-59.94707599957745, -3.0965178354433376],
+                    markerOptions: { color: 'green' },
+                }
+            }
     };
+
+
 
     const gramaLayerParams: addGramaLayerType = {
         map: map, 
@@ -69,6 +86,13 @@ export function createMap(options: MapOptions) {
                 [-59.98641663481518, -3.0968012963382923],
                 [-59.98655610968561, -3.0962067153250894],
                 [-59.98709255149494, -3.0963299168237146]            
+            ],
+            "Teste1": [
+                [-59.989102423442546, -3.0938964244221574],
+                [-59.988544523961174, -3.0946463480010373],
+                [-59.98792225146272, -3.0947320535191243],
+                [-59.988008082152156, -3.093885711224319],
+                [-59.989102423442546, -3.0938964244221574]            
             ]
         },
     }
