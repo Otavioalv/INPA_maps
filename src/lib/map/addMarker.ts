@@ -31,8 +31,10 @@ export function addMarker({map, markers}: addMakerType) {
         popUp.on("open", () => {
             const popUpElement = popUp.getElement();
             
-            console.log(popUpElement)
+            console.log(popUpElement);
             const popUpTitle:Element | null = popUpElement?.querySelector("#pop-up-title");
+
+
             if(popUpTitle)
                 popUpTitle.innerHTML = nameLoc;
     

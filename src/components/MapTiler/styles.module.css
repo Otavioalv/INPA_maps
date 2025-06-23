@@ -1,0 +1,25 @@
+.map_container {
+    width: 100vw;
+    height: 100vh;
+}
+/* 
+.drop-page {
+    width: 100vw;
+    height: 100vw;
+} */
+
+.buttonDropPage:hover .arrowButton{
+    animation: arrowButtonSlice .6s ease-out both;
+}
+
+
+
+@keyframes arrowButtonSlice {
+    0% {
+        opacity: 0;
+        transform: translateY(-6px);
+    } 100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
