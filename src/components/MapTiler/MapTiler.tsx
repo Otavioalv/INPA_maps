@@ -38,7 +38,6 @@ export const MapTiler = () => {
                     className={"w-screen h-screen"}
                 />
             </div>
-
             <DropContainer/>
         </>
     )
