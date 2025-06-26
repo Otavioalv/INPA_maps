@@ -1,24 +1,11 @@
-import type { MarkerOptions, LngLatLike} from 'maplibre-gl';
+import type { makerType, addMakerType } from '@/types/mapTypes';
 
-import {Marker, Popup, Map} from 'maplibre-gl';
+import {Marker, Popup} from 'maplibre-gl';
 import popUpHTML from './popUp.html?raw';
 
 
-export type makerType = {
-    callMarker: () => void;
-    lnglat: LngLatLike;
-    markerOptions: MarkerOptions; 
-};
-
-export type addMakerType = {
-    map: Map;
-    markers: {[k: string]: makerType};
-    // campo para lista de switchs
-    // campo para id da localização
-}
-
 // recebe o mapa, e os marcadores que deverão aparecer no mapa
-export function addMarker({map, markers}: addMakerType) {
+export async function addMarker({map, markers}: addMakerType) {
 
     Object.entries(markers).forEach((m:[string, makerType], i:number) => {
         const [nameLoc, makerObj]:[string, makerType] = m;

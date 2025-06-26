@@ -11,7 +11,7 @@ import { DropContainer } from '../DropContainer/DropContainer';
 export const MapTiler = () => {
     const mapRef = useRef(null);
 
-    const loadMap = () => {
+    const loadMap = async () => {
         if(mapRef.current){
             // Opções de configuração de visão do mapa
             const options: MapOptions = {
@@ -22,7 +22,7 @@ export const MapTiler = () => {
                 pitch: 10
             }
 
-            createMap(options)
+            await createMap(options)
         }
     }
 

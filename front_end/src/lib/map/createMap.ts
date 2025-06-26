@@ -1,13 +1,16 @@
 import type { MapOptions } from 'maplibre-gl'
-import type { addMakerType } from './addMarker';
 import type { addGramaLayerType } from './addGramaLayer';
+
+import type { addMakerType } from '@/types/mapTypes';
+import type { BuildingListType } from '@/types/infraApi';
 
 import {Map, NavigationControl} from 'maplibre-gl';
 
 import { addMarker } from './addMarker';
 import { addGramaLayer } from './addGramaLayer';
+import { listBuildingInfo } from '@/services/infraInpaService';
 
-export function createMap(options: MapOptions) {
+export async function createMap(options: MapOptions) {
     const API_KEY = "PQHQjOkbU9K1U80DwufY"
 
     options.style = `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`;
@@ -24,6 +27,10 @@ export function createMap(options: MapOptions) {
     }
 
     // makers: {[k: string]: makerType}[];
+
+    const listInfo: BuildingListType = await listBuildingInfo();
+    console.log(listInfo);
+
     const markerParams: addMakerType = {
         map: map,
         markers: {
@@ -44,7 +51,6 @@ export function createMap(options: MapOptions) {
                 }
             }
     };
-
 
 
     const gramaLayerParams: addGramaLayerType = {
@@ -98,10 +104,10 @@ export function createMap(options: MapOptions) {
     }
     
 
-    addMarker(markerParams);
+    await addMarker(markerParams);
 
-    map.on('load', () => {
-        addGramaLayer(gramaLayerParams);
+    map.on('load', async () => {
+        await addGramaLayer(gramaLayerParams);
     });
 
     return map;
