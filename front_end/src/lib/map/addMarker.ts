@@ -13,6 +13,8 @@ export type makerType = {
 export type addMakerType = {
     map: Map;
     markers: {[k: string]: makerType};
+    // campo para lista de switchs
+    // campo para id da localização
 }
 
 // recebe o mapa, e os marcadores que deverão aparecer no mapa

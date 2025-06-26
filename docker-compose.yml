@@ -1,0 +1,30 @@
+services:
+  infa_db_inpa_psql:
+    image: postgres:17
+    container_name: infra_inpa
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: infra_switchs_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+
+  api_loc_inpa:
+    build:
+      context: ./api_loc         # Caminho até seu Dockerfile e código
+      dockerfile: Dockerfile     # Opcional, se o nome já for Dockerfile
+    container_name: api_loc_container
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./api_loc:/app           # Monta o código local no container
+      - /app/node_modules        # Evita conflito entre host e container
+    command: npm run dev         # Usa tsx watch
+
+volumes:
+  postgres_data:
+
+# docker-compose up --build -d
