@@ -11,9 +11,9 @@ export class InfraController {
 
     public async listBuildingInfo(req: Request, res: Response): Promise<void>{
         try {
-            const listInfor:BuildingListType = await this.infraModel.listBuildingInfo();
+            const listInfo:BuildingListType = await this.infraModel.listBuildingInfo();
 
-            res.status(200).send({message: "Informações listadas com sucesso", results: listInfor});
+            res.status(200).send({message: "Informações listadas com sucesso", results: listInfo});
             return;
         } catch (err) {
             res.status(500).send({message: "Erro interno no servidor", results: []});

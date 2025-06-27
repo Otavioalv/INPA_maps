@@ -12,6 +12,7 @@ export class InfraModel {
 
             const SQL = "SELECT id, build_name, build_number, lnglat, switchs FROM building_info_tb";
 
+            
             const result: BuildingListType = (await client.query(SQL)).rows ?? [];
 
             client.release();

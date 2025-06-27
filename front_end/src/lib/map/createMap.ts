@@ -29,29 +29,29 @@ export async function createMap(options: MapOptions) {
     // makers: {[k: string]: makerType}[];
 
     const listInfo: BuildingListType = await listBuildingInfo();
-    console.log(listInfo);
+    // console.log(listInfo);
 
     const markerParams: addMakerType = {
         map: map,
-        markers: {
+        callMarker: test,
+        markers: listInfo,
+    };
+
+    /* 
+    {
                 "impa-loc1": {
-                    callMarker: test,
                     lnglat: [-59.98707599957745, -3.0965178354433376],
                     markerOptions: { color: 'red' },
                 }, 
                 "impa-loc2": {
-                    callMarker: test,
                     lnglat: [-59.96707599957745, -3.0965178354433376],
                     markerOptions: { color: 'blue' },
                 },
                 "impa-loc3": {
-                    callMarker: test,
                     lnglat: [-59.94707599957745, -3.0965178354433376],
                     markerOptions: { color: 'green' },
                 }
-            }
-    };
-
+        } */
 
     const gramaLayerParams: addGramaLayerType = {
         map: map, 
