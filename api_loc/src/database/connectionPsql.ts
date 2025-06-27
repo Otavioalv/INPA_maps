@@ -18,6 +18,7 @@ const connection = new Pool({
 
 connection.connect((err: Error | undefined, client: PoolClient | undefined) => {
     if(err) {
+        console.log("Erro: ", err.message);
         throw new Error(`Erro connecting to database`);
     } else {
         console.log(`Connected to database`);

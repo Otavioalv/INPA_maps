@@ -1,7 +1,7 @@
 services:
   infa_db_inpa_psql:
     image: postgres:17
-    container_name: infra_inpa
+    container_name: infa_db_inpa_psql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
