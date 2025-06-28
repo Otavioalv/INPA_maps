@@ -13,8 +13,8 @@ class switchModel():
     
     def sw_sh_status(self, net_connect, command):
         """ 
-            command: 'hostname_sw', 'status_sw', 'ip_sw', 'local_sw', 'version_sw', 'vlan_sw'
-            net_connect: objeto de conexão com o switch
+            :command: 'hostname_sw', 'status_sw', 'ip_sw', 'local_sw', 'version_sw', 'vlan_sw'
+            :net_connect: objeto de conexão com o switch
         """
         
         try:     
