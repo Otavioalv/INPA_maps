@@ -1,6 +1,8 @@
-import type { MarkerOptions, LngLatLike} from 'maplibre-gl';
+import type { MarkerOptions, LngLatLike, MapOptions} from 'maplibre-gl';
 import {Map} from 'maplibre-gl';
-import type { BuildingListType } from './infraApi';
+import type { BuildingListType, BuildingTypeInterface } from './infraApi';
+
+
 
 export type makerType = {
     // callMarker: () => void;
@@ -9,11 +11,16 @@ export type makerType = {
 };
 
 export type addMakerType = {
-    callMarker: () => void;
+    callMarker: (infoBuilding: BuildingTypeInterface) => void;
     map: Map;
     // markers: {[k: string]: makerType};
     markers: BuildingListType;
     
     // campo para lista de switchs
     // campo para id da localização
+}
+
+export type createMapType = {
+    options: MapOptions, 
+    fetchListIps: (listIps: string[]) => void;
 }

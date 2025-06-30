@@ -27,28 +27,9 @@ class switchModel():
                 'vlan_sw':  "show interfaces trunk"
             }
             
-            # list_commands['hostname_sw']
-            # list_commands[command]
-            
             status = net_connect.send_command(list_commands[command])
-            
-            # print(status)
             
             return status
         except Exception as err:
             print(f"Erro ao executar comando ({err})")
             return ''
-
-    
-    def r_list_sw(self) -> list:
-        try:    
-            list_csv = open("list_switchs.csv", "r")
-            csv_reader = csv.reader(list_csv)
-            result = list(csv_reader)
-            list_csv.close()
-            return result
-        except Exception as err:
-            print(f"Erro ao ler arquivo csv ({err})")
-            return []
-        
-    # Função para inserir codigo no switch

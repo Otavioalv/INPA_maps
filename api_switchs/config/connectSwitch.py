@@ -2,6 +2,8 @@ from netmiko import ConnectHandler
 from netmiko.base_connection import BaseConnection
 
 def connectSwitch(ip_switch):
+    # return 
+    
     protocolos = ['cisco_ios', 'cisco_ios_telnet']
 
     credenciais = [

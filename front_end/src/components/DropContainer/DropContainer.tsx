@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from './styles.module.css';
 
 import { IoIosArrowDown } from 'react-icons/io';
 import { GoScreenFull } from "react-icons/go";
+import type { BuildingTypeInterface } from "@/types/infraApi";
+import { getInfoStatusSw } from "@/services/switchLocalService";
 
-export const DropContainer = () => {
-    const [isActive, setIsActive] = useState(false);
-    const [isFullScreen, setIsFullScreen] = useState(false);
+
+export type dropContainerType = {
+    infoBuilding: BuildingTypeInterface;
+}
+
+export const DropContainer = ({infoBuilding}: dropContainerType) => {
+    const [isActive, setIsActive] = useState(true);
+    const [isFullScreen, setIsFullScreen] = useState(true);
 
     const handleSetIsActive = () => {
         setIsActive(prev => {
@@ -24,6 +31,21 @@ export const DropContainer = () => {
         if (isFullScreen) return 'h-[86vh] overflow-auto';
         return 'h-[50vh] overflow-auto';
     };
+
+    const fetchInfoSw = useCallback(async () => {
+        
+        console.log("teste FETCH INFO SWITCH: ", infoBuilding);
+
+        const switchList: string[] = infoBuilding.switchs.split(",");
+
+        await getInfoStatusSw({list_sw: switchList});
+
+    }, [infoBuilding])
+
+    useEffect(() => {
+        fetchInfoSw();
+    }, [fetchInfoSw])
+
 
     return (
         <div className="flex items-center justify-center flex-col absolute w-full h-auto bottom-0">
@@ -45,11 +67,25 @@ export const DropContainer = () => {
                         <GoScreenFull className="animate-pulse w-full h-full"/>
                     </button>
 
-                    {[...Array(14)].map((_, i) => (
+
+                    <div className="w-full h-full">
+                        <div>
+                            <h1>
+                                {infoBuilding.build_name}
+                            </h1>
+                        </div>
+
+                        <div>
+                            {infoBuilding.switchs}
+                        </div>
+                        
+                    </div>
+
+                    {/* {[...Array(14)].map((_, i) => (
                         <div key={i} className="bg-gray-300 my-1 p-2 text-center hover:bg-gray-400 cursor-pointer w-full">
                             LISTA EXEMPLO VIEW - {i + 1}
                         </div>
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>

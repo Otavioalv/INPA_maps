@@ -2,7 +2,7 @@ import type { MapOptions } from 'maplibre-gl'
 import type { addGramaLayerType } from './addGramaLayer';
 
 import type { addMakerType } from '@/types/mapTypes';
-import type { BuildingListType } from '@/types/infraApi';
+import type { BuildingListType, BuildingTypeInterface } from '@/types/infraApi';
 
 import {Map, NavigationControl} from 'maplibre-gl';
 
@@ -10,7 +10,12 @@ import { addMarker } from './addMarker';
 import { addGramaLayer } from './addGramaLayer';
 import { listBuildingInfo } from '@/services/infraInpaService';
 
-export async function createMap(options: MapOptions) {
+type createMapType = {
+    options: MapOptions, 
+    handleInfoBuilding: (infoBuilding: BuildingTypeInterface) => void;
+}
+
+export async function createMap({options, handleInfoBuilding}: createMapType) {
     const API_KEY = "PQHQjOkbU9K1U80DwufY"
 
     options.style = `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`;
@@ -21,11 +26,6 @@ export async function createMap(options: MapOptions) {
     map.addControl(new NavigationControl(), 'top-right');
 
 
-    const test = () => {
-        console.log('Clicou no prédio X');
-        // Abrir modal
-    }
-
     // makers: {[k: string]: makerType}[];
 
     const listInfo: BuildingListType = await listBuildingInfo();
@@ -33,25 +33,9 @@ export async function createMap(options: MapOptions) {
 
     const markerParams: addMakerType = {
         map: map,
-        callMarker: test,
+        callMarker: handleInfoBuilding,
         markers: listInfo,
     };
-
-    /* 
-    {
-                "impa-loc1": {
-                    lnglat: [-59.98707599957745, -3.0965178354433376],
-                    markerOptions: { color: 'red' },
-                }, 
-                "impa-loc2": {
-                    lnglat: [-59.96707599957745, -3.0965178354433376],
-                    markerOptions: { color: 'blue' },
-                },
-                "impa-loc3": {
-                    lnglat: [-59.94707599957745, -3.0965178354433376],
-                    markerOptions: { color: 'green' },
-                }
-        } */
 
     const gramaLayerParams: addGramaLayerType = {
         map: map, 

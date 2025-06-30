@@ -1,5 +1,5 @@
 services:
-  infa_db_inpa_psql:
+  infra_db_inpa_psql:
     image: postgres:17
     container_name: infa_db_inpa_psql
     environment:

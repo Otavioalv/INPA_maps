@@ -8,30 +8,23 @@ import buildingIcon from '@/assets/building.svg';
 
 // recebe o mapa, e os marcadores que deverão aparecer no mapa
 export async function addMarker({map, markers, callMarker}: addMakerType) {
-    markers.forEach(async (m: BuildingTypeInterface, i: number) => {
-        console.log(m, i);
-        
+    markers.forEach(async (m: BuildingTypeInterface, i: number) => {     
         const {build_name, lnglat} = m;
+        
+        console.log(i)
        
         // Marker, marca um local do mapa
         // Cria a vizualização do popUp no mapa
         const popUp = new Popup({ offset: 15 }).setHTML(popUpHTML)
         popUp.on("open", () => {
             const popUpElement = popUp.getElement();
-            
-            // console.log(popUpElement);
+
             // Pega o elemento e adiciona um valor dentro do elemento
             const popUpTitle:Element | null = popUpElement?.querySelector("#pop-up-title");
             if(popUpTitle)
                 popUpTitle.innerHTML = build_name;
     
         });
-
-
-        // Separar o makerOption
-
-        // const popUpIconContainer = document.createElement("div");
-        // popUpIconContainer.innerHTML = buildingIcon;
         
         const iconContainer = document.createElement('div');
         const imgPopUp = document.createElement('img');
@@ -55,48 +48,9 @@ export async function addMarker({map, markers, callMarker}: addMakerType) {
         );
         marker.addTo(map);
         
-        marker.getElement().addEventListener('click', () => callMarker());
-        
-        // console.log(i);
+        // const swList: string[] = switchs.split(",");
+
+        marker.getElement().addEventListener('click', () => callMarker(m));
     });
-
-
-
-    // Object.entries(markers).forEach((m:[string, makerType], i:number) => {
-    //     const [nameLoc, makerObj]:[string, makerType] = m;
-
-    //     // const popUpHTML = `
-    //     //     <h1>${nameLoc}</h1>
-    //     //     <p>Switches: 4</p>
-    //     // `;
-
-    //     // Marker, marca um local do mapa
-    //     const popUp = new Popup({ offset: 15 }).setHTML(popUpHTML)
-    //     popUp.on("open", () => {
-    //         const popUpElement = popUp.getElement();
-            
-    //         console.log(popUpElement);
-    //         const popUpTitle:Element | null = popUpElement?.querySelector("#pop-up-title");
-
-
-    //         if(popUpTitle)
-    //             popUpTitle.innerHTML = nameLoc;
-    
-    //     });
-        
-        
-    //     const marker = new Marker(makerObj.markerOptions);
-    //     marker.setLngLat(makerObj.lnglat)
-    //     marker.setPopup(
-    //         popUp
-    //         // new Popup({ offset: 15 })
-    //         // .setHTML(popUpHTML)
-    //     );
-    //     marker.addTo(map);
-        
-    //     marker.getElement().addEventListener('click', () => callMarker());
-        
-    //     console.log(i);
-    // });
 
 };
