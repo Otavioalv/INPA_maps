@@ -6,42 +6,22 @@ import { GoScreenFull } from "react-icons/go";
 
 import { TableIntStatus } from "../TableIntStatus/TableIntStatus";
 
-import type { BuildingTypeInterface } from "@/types/infraApi";
+import type { dropContainerType, infoPortsListType } from "@/types/infraApi";
 
+import { getInfoStatusSw } from "@/services/switchLocalService";
 
+import notFoundImg from "@/assets/not_found.jpg";
 
-// import { getInfoStatusSw } from "@/services/switchLocalService";
-
-
-export type dropContainerType = {
-    infoBuilding: BuildingTypeInterface;
-}
-
-type infoPortsType = {
-    sw_ip: string,
-    ports_info: {
-        port:string,
-        name:string,
-        status:string,
-        vlan:string,
-        duplex:string,
-        speed:string,
-        type:string
-    }[]
-}
-
-export type responseInfoPortsType = {
-    message: string,
-    results: infoPortsType[]
-}
 
 
 export const DropContainer = ({infoBuilding}: dropContainerType) => {
-    const [isActive, setIsActive] = useState(true);
-    const [isFullScreen, setIsFullScreen] = useState(true);
+    const [isActive, setIsActive] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(false);
+
+    const [infoPorts, setInfoPorts] = useState<infoPortsListType>([]);
 
     // teste de dados 
-    const [infoPorts, ] = useState<responseInfoPortsType>({
+    /* const [infoPorts, ] = useState<responseInfoPortsType>({
   "message": "Requisição realizada com sucesso",
   "results": [
     {
@@ -182,11 +162,11 @@ export const DropContainer = ({infoBuilding}: dropContainerType) => {
     }
   ]
 }
-);
+); */
 
-    infoBuilding = {build_name: "nome ficticion", build_number: 2, id: 3, lnglat: "3243, 3434", switchs: "123, 343, 343"}
+    // infoBuilding = {build_name: "nome ficticion", build_number: 2, id: 3, lnglat: "3243, 3434", switchs: "123, 343, 343"}
 
-    console.log(infoPorts)
+    // console.log(infoPorts)
 
     const handleSetIsActive = () => {
         setIsActive(prev => {
@@ -207,12 +187,16 @@ export const DropContainer = ({infoBuilding}: dropContainerType) => {
 
     const fetchInfoSw = useCallback(async () => {
         
-        console.log("teste FETCH INFO SWITCH: ", infoBuilding);
+        // console.log("teste FETCH INFO SWITCH: ", infoBuilding);
 
-        // const switchList: string[] = infoBuilding.switchs.split(",");
+        const switchList: string[] = infoBuilding.switchs.split(",");
 
         // para teste de mokup
-        // await getInfoStatusSw({list_sw: switchList});
+        if(switchList[0] != ""){
+          console.log("LISTA DE SWITCHS: ", switchList);
+          setInfoPorts([]);
+          setInfoPorts(await getInfoStatusSw({list_sw: switchList}));
+        }
 
     }, [infoBuilding])
 
@@ -232,8 +216,10 @@ export const DropContainer = ({infoBuilding}: dropContainerType) => {
                 </button>
             </div>
             
+
+            {/* Container de vizualização */}
             <div className={`bg-white w-full duration-200 ${getContainerHeightClass()} shadow-[0_1px_2px_rgba(60,64,67,0.15),0_2px_6px_2px_rgba(60,64,67,0.15)]`}>
-                <div className="flex flex-col items-end p-2">
+                <div className="flex flex-col items-end justify-center p-2">
                     <button
                         className="w-7 h-7 cursor-pointer"
                         onClick={handleSetIsFullScreen}
@@ -242,24 +228,31 @@ export const DropContainer = ({infoBuilding}: dropContainerType) => {
                     </button>
 
 
+
                     <div className="w-full h-full flex flex-col justify-center items-center">
-                        <div>
-                            <h1>
-                                {infoBuilding.build_name} - {infoBuilding.build_number}
-                            </h1>
-                        </div>
+                      {infoBuilding.build_number ? (
+                        <>
+                          <div>
+                              <h1 className="text-3xl">
+                                  {infoBuilding.build_name} - {infoBuilding.build_number}
+                              </h1>
+                          </div>
 
-                        <div className="flex flex-col gap-15 mb-16">
-                            <TableIntStatus results={infoPorts.results} message={infoPorts.message}/>
-                        </div>
-                        
+                          <div className="flex flex-col gap-15 mb-16">
+                              <TableIntStatus results={infoPorts}/>
+                          </div>
+                        </>
+                      ) : (
+                          <div className="flex flex-col items-center justify-center gap-6 text-zinc-700">
+                            <div className="flex flex-col items-center justify-center">
+                                <img src={notFoundImg} className="w-72" draggable="false" alt="Not found error"/>
+                              <h1 className=" text-6xl">Sem dados</h1>
+                            </div>
+
+                            <p>clique em um local para caregar informações dos Switchs</p>
+                          </div>
+                      )}
                     </div>
-
-                    {/* {[...Array(14)].map((_, i) => (
-                        <div key={i} className="bg-gray-300 my-1 p-2 text-center hover:bg-gray-400 cursor-pointer w-full">
-                            LISTA EXEMPLO VIEW - {i + 1}
-                        </div>
-                    ))} */}
                 </div>
             </div>
         </div>

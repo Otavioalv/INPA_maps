@@ -25,7 +25,7 @@ export const MapTiler = () => {
             // Opções de configuração de visão do mapa
             const options: MapOptions = {
                 container: mapRef.current,
-                center: [-59.9860657, -3.0989911],
+                center: [-59.989992399323334, -3.0960096764556044],
                 zoom: 16,
                 bearing: 50,
                 pitch: 10
@@ -47,7 +47,7 @@ export const MapTiler = () => {
                     className={"w-screen h-screen"}
                 />
             </div>
-
+            
             <DropContainer infoBuilding={infoBuilding}/>
             
         </>

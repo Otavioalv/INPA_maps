@@ -1,6 +1,4 @@
 from flask import jsonify
-import re
-import csv
 from model.switchModel import switchModel
 from config.connectSwitch import connectSwitch
 

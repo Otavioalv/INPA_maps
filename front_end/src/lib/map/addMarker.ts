@@ -8,10 +8,10 @@ import buildingIcon from '@/assets/building.svg';
 
 // recebe o mapa, e os marcadores que deverão aparecer no mapa
 export async function addMarker({map, markers, callMarker}: addMakerType) {
-    markers.forEach(async (m: BuildingTypeInterface, i: number) => {     
+    markers.forEach(async (m: BuildingTypeInterface/* , i: number */) => {     
         const {build_name, lnglat} = m;
         
-        console.log(i)
+        // console.log(i)
        
         // Marker, marca um local do mapa
         // Cria a vizualização do popUp no mapa

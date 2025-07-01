@@ -1,0 +1,53 @@
+/* From Uiverse.io by mrpumps31232 */ 
+:root {
+  --w-loading-wave: 300px;
+  --h-loading-wave: 200px;
+
+  --w-loading-bar: 30px;
+  --h-loaging-bar: 10px;
+}
+
+
+.loadingWave {
+  /* background-color: red; */
+  width: var(--w-loading-wave);
+  height: var(--h-loading-wave);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.loadingBar {
+  width: var(--w-loading-bar);
+  height: var(--h-loaging-bar);
+  margin: 0 5px;
+  background-color: #00c950;
+  border-radius: 5px 5px 0 0;
+  animation: loadingWave-animation 1s ease-in-out infinite;
+}
+
+.loadingBar:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.loadingBar:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.loadingBar:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes loadingWave-animation {
+  0% {
+    height: var(--h-loaging-bar);
+  }
+
+  50% {
+    height: calc(var(--h-loaging-bar) + 50%);
+  }
+
+  100% {
+    height: var(--h-loaging-bar);
+  }
+}
