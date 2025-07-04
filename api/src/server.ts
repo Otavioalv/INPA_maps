@@ -12,6 +12,10 @@ const HOST: string = "0.0.0.0";
 
 const server = http.createServer(app);
 
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy' });
+});
+
 app.use("/infra", router);
 app.use((req: Request, res: Response) => {res.status(200).send({message: "router not exists"})});
 

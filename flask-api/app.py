@@ -2,8 +2,12 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from controller.switchController import switchController
 
-app = Flask(__name__);
-CORS(app, origins="http://127.0.0.1:5173");
+app = Flask(__name__)
+CORS(app, origins=["http://localhost", "http://127.0.0.1"])
+
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "healthy"})
 
 
 # Pegar dados das portas do/s switchs

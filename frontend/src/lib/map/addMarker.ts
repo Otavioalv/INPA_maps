@@ -19,12 +19,37 @@ export async function addMarker({map, markers, callMarker}: addMakerType) {
         popUp.on("open", () => {
             const popUpElement = popUp.getElement();
 
-            // Pega o elemento e adiciona um valor dentro do elemento
+            // Pega o elemento de titulo e adiciona um valor dentro do elemento
             const popUpTitle:Element | null = popUpElement?.querySelector("#pop-up-title");
             if(popUpTitle)
                 popUpTitle.innerHTML = build_name;
-    
+
+            // Pega o elemento de switchs e adicionan um valor dentro do elemento
+            const popUpSwitch:Element | null = popUpElement.querySelector("#pop-up-switch");
+            if (popUpSwitch) {
+                popUpSwitch.innerHTML = '';
+                
+                const ipList: string[] = m.switchs.replace(/\s/g, "").split(",");
+
+                const listSwElm = document.createElement("ul");
+                listSwElm.className = "flex gap-1 w-full";
+
+                ipList.forEach((ipSw: string) => {
+                    const itemSwElm = document.createElement("li")
+
+                    itemSwElm.className = "bg-green-400 text-white p-1 px-2 rounded-sm";
+                    itemSwElm.innerHTML = ipSw;
+                    console.log("ip individual: ", ipSw);
+
+                    listSwElm.appendChild(itemSwElm);
+                });
+
+                console.log(ipList);
+
+                popUpSwitch.appendChild(listSwElm);
+            }
         });
+
         
         const iconContainer = document.createElement('div');
         const imgPopUp = document.createElement('img');

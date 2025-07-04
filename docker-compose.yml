@@ -1,30 +1,62 @@
+version: '3.8'
+
 services:
-  infra_db_inpa_psql:
-    image: postgres:17
-    container_name: infa_db_inpa_psql
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres_db
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_DB: app_db
+      POSTGRES_USER: postgress
       POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: infra_switchs_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
-    volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgress -d app_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  api_loc_inpa:
-    build:
-      context: ./api_loc         # Caminho até seu Dockerfile e código
-      dockerfile: Dockerfile     # Opcional, se o nome já for Dockerfile
-    container_name: api_loc_container
+  # Aplicação principal (contém todas as apps)
+  app:
+    build: .
+    container_name: multi_app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://postgress:123456@postgres:5432/app_db
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=app_db
+      - DB_USER=postgress
+      - DB_PASSWORD=123456
     ports:
-      - "5433:5433"
+      - "80:80"     # Nginx (frontend)
+      - "3000:3000" # API Express
+      - "5000:5000" # Flask API
+    restart: unless-stopped
     volumes:
-      - ./api_loc:/app           # Monta o código local no container
-      - /app/node_modules        # Evita conflito entre host e container
-    command: npm run dev         # Usa tsx watch
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:
+    driver: local
+
+networks:
+  default:
+    driver: bridge
+
 
 # docker-compose up --build -d
