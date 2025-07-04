@@ -1,0 +1,75 @@
+2025-07-04 14:49:48,742 INFO Set uid to user 0 succeeded
+2025-07-04 14:49:48,748 INFO RPC interface 'supervisor' initialized
+2025-07-04 14:49:48,748 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-07-04 14:49:48,748 INFO supervisord started with pid 1
+2025-07-04 14:49:49,764 INFO spawned: 'nginx' with pid 13
+2025-07-04 14:49:49,769 INFO spawned: 'express_api' with pid 14
+2025-07-04 14:49:49,773 INFO spawned: 'flask_api' with pid 15
+2025-07-04 14:49:49,901 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:49:51,639 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-04 14:49:51,644 INFO spawned: 'express_api' with pid 25
+2025-07-04 14:49:51,644 INFO success: flask_api entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-04 14:49:51,683 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:49:53,691 INFO spawned: 'express_api' with pid 32
+2025-07-04 14:49:53,725 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:49:56,734 INFO spawned: 'express_api' with pid 45
+2025-07-04 14:49:56,767 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:49:57,770 INFO gave up: express_api entered FATAL state, too many start retries too quickly
+2025-07-04 14:52:19,947 WARN received SIGTERM indicating exit request
+2025-07-04 14:52:19,949 INFO waiting for nginx, flask_api to die
+2025-07-04 14:52:19,995 INFO stopped: flask_api (exit status 0)
+2025-07-04 14:52:21,001 INFO stopped: nginx (exit status 0)
+2025-07-04 14:53:16,404 INFO Set uid to user 0 succeeded
+2025-07-04 14:53:16,408 INFO RPC interface 'supervisor' initialized
+2025-07-04 14:53:16,408 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-07-04 14:53:16,409 INFO supervisord started with pid 1
+2025-07-04 14:53:17,414 INFO spawned: 'nginx' with pid 13
+2025-07-04 14:53:17,418 INFO spawned: 'express_api' with pid 14
+2025-07-04 14:53:17,421 INFO spawned: 'flask_api' with pid 15
+2025-07-04 14:53:17,458 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:53:17,459 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:53:18,462 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-04 14:53:18,465 INFO spawned: 'express_api' with pid 29
+2025-07-04 14:53:18,468 INFO spawned: 'flask_api' with pid 30
+2025-07-04 14:53:18,495 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:53:18,497 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:53:20,506 INFO spawned: 'express_api' with pid 43
+2025-07-04 14:53:20,509 INFO spawned: 'flask_api' with pid 44
+2025-07-04 14:53:20,538 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:53:20,541 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:53:23,548 INFO spawned: 'express_api' with pid 57
+2025-07-04 14:53:23,551 INFO spawned: 'flask_api' with pid 58
+2025-07-04 14:53:23,581 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:53:23,582 INFO gave up: express_api entered FATAL state, too many start retries too quickly
+2025-07-04 14:53:23,582 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:53:24,584 INFO gave up: flask_api entered FATAL state, too many start retries too quickly
+2025-07-04 14:53:25,586 WARN received SIGTERM indicating exit request
+2025-07-04 14:53:25,587 INFO waiting for nginx to die
+2025-07-04 14:53:27,592 INFO stopped: nginx (exit status 0)
+2025-07-04 14:56:15,064 INFO Set uid to user 0 succeeded
+2025-07-04 14:56:15,068 INFO RPC interface 'supervisor' initialized
+2025-07-04 14:56:15,068 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-07-04 14:56:15,069 INFO supervisord started with pid 1
+2025-07-04 14:56:16,074 INFO spawned: 'nginx' with pid 13
+2025-07-04 14:56:16,077 INFO spawned: 'express_api' with pid 14
+2025-07-04 14:56:16,081 INFO spawned: 'flask_api' with pid 15
+2025-07-04 14:56:16,111 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:56:16,115 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:56:17,117 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-04 14:56:17,121 INFO spawned: 'express_api' with pid 29
+2025-07-04 14:56:17,124 INFO spawned: 'flask_api' with pid 30
+2025-07-04 14:56:17,152 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:56:17,153 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:56:19,160 INFO spawned: 'express_api' with pid 43
+2025-07-04 14:56:19,163 INFO spawned: 'flask_api' with pid 44
+2025-07-04 14:56:19,192 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:56:19,195 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:56:22,203 INFO spawned: 'express_api' with pid 57
+2025-07-04 14:56:22,206 INFO spawned: 'flask_api' with pid 58
+2025-07-04 14:56:22,238 WARN exited: flask_api (exit status 1; not expected)
+2025-07-04 14:56:22,240 INFO gave up: flask_api entered FATAL state, too many start retries too quickly
+2025-07-04 14:56:22,240 WARN exited: express_api (exit status 1; not expected)
+2025-07-04 14:56:23,242 INFO gave up: express_api entered FATAL state, too many start retries too quickly
+2025-07-04 14:59:22,453 WARN received SIGTERM indicating exit request
+2025-07-04 14:59:22,454 INFO waiting for nginx to die
+2025-07-04 14:59:24,460 INFO stopped: nginx (exit status 0)

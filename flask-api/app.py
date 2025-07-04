@@ -3,6 +3,9 @@ from flask_cors import CORS
 from controller.switchController import switchController
 
 app = Flask(__name__)
+
+# CORS(app, origins=["http://localhost", "http://127.0.0.1:5173"])
+# config para o docker
 CORS(app, origins=["http://localhost", "http://127.0.0.1"])
 
 @app.route('/health', methods=['GET'])

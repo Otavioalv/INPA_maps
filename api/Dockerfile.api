@@ -1,0 +1,19 @@
+FROM node:18-alpine
+WORKDIR /app
+
+COPY package*.json ./
+
+# Instalar todas as dependências (prod + dev)
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+# Agora remove as devDependencies para deixar só o que é necessário em produção
+RUN npm prune --production
+
+RUN mkdir -p /app/logs
+
+EXPOSE 3000
+CMD ["node", "dist/server.js"]

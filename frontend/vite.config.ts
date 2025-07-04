@@ -22,6 +22,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser'
+    minify: 'terser',
+    // Opção para almentar a quantidade de chunks
+    chunkSizeWarningLimit: 1600,
   }
 })
