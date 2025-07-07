@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 # CORS(app, origins=["http://localhost", "http://127.0.0.1:5173"])
 # config para o docker
-CORS(app, origins=["http://localhost", "http://127.0.0.1"])
+# CORS(app, origins=["http://localhost", "http://127.0.0.1"])
+CORS(app, origins=["*"])
 
 @app.route('/health', methods=['GET'])
 def health():
