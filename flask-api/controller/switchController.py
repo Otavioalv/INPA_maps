@@ -7,7 +7,6 @@ class switchController():
     def __init__(self):
         self.swModel = switchModel()
         
-        
     def get_full_status_port(self, response):
         """ 
         Coleta status completo das portas em um switch, função feita para ser usado na API.
@@ -106,23 +105,27 @@ class switchController():
         
         return results
         
-    def terminal_mode(self, id_sw = ""):
-        if not id_sw:
-            print("Parametro de IP vazio, insira manualmente")
-            id_sw = str(input(">>>"))
-        
-        
-        opc = str(input("Entrar em modo terminal s/n: "))
-        
-        net_connect = connectSwitch(id_sw)    
-        
-    
-        if opc.lower() == "s":
-            text = ""
-            while text != "/exit":
-                text = input(">>>")
-                result = net_connect.send_command(text)
-                print(result)
-        else: 
-            print("Não entrou em modo terminal")
+    def terminal_mode(self, response):
+        try:
+            if not response:
+                return jsonify({
+                    "message": "Nenhum dado foi enviado",
+                    "results": []
+                }), 400
             
+            # print(response["ip_sw"])
+            # self.swModel.sw_sh_free_mode()
+            
+            return jsonify({
+                "message": "Requisição realizada com sucesso",
+                "results": "status_sw_results"
+            }), 200
+            
+        except Exception as e: 
+            print(f"Erro ao executar comnando no switch: {e}")
+            
+            return jsonify({
+                "message": "Erro ao efetuar requisição",
+                "results": []
+            }), 500
+    

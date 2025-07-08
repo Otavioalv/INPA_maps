@@ -33,3 +33,20 @@ class switchModel():
         except Exception as err:
             print(f"Erro ao executar comando ({err})")
             return ''
+        
+    def sw_sh_free_mode(self, net_connect, command): 
+        """ 
+            Modo livre de acesso ao switch
+            :command: "Comando para ser enviado para o switch"
+            :net_connect: objeto de conexão com o switch
+        """
+        
+        
+        try:
+            # Bem simples, so executa e retona
+            result = net_connect.send_command(command)
+            
+            return result
+        except Exception as err: 
+            print(f"Erro ao executar comando ({err})")
+            return ''
