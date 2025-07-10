@@ -1,12 +1,18 @@
 import { socket } from "@/services/infraSocketIO";
-import { useCallback, useEffect, useState, type ChangeEvent, type KeyboardEvent } from "react"
+import { useCallback, useEffect, useState, useRef} from "react";
+import type { ChangeEvent} from "react";
+import { Terminal } from "@/components/Terminal/Terminal";
 
 
 export const TerminalMode = () => {
     const [ipInputValue, setIpInputValue] = useState<string>("");
     const [isIpValid, setIsIpValid] = useState<boolean>(false);
     const [cmdl, ] = useState<string>("sh int status");
-    const [beforeContentTerminal, setBeforeContentTerminal] = useState<string>("");
+    // const [beforeContentTerminal, /* setBeforeContentTerminal */] = useState<string>("");
+
+
+    const terminalRef = useRef<HTMLDivElement>(null);
+    
 
     const handleIpInputValue = (e:ChangeEvent<HTMLInputElement>) => {
         setIpInputValue(e.target.value);
@@ -49,16 +55,13 @@ export const TerminalMode = () => {
             socket.off("get_res_access_sw");
         }
     }
-
-    const enterTerminal = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if(e.key === "Enter" && !e.shiftKey) {    
-            e.preventDefault(); 
-            setBeforeContentTerminal(beforeContentTerminal + "\nEnter")
-        }
-    }
-
     
-
+    useEffect(() => {
+        const el = terminalRef.current;
+        if (el) {
+            el.scrollTop = el.scrollHeight;
+        }
+    }, [])
     useEffect(() => {
         validarIP();
     }, [validarIP]);
@@ -106,27 +109,8 @@ export const TerminalMode = () => {
                 </div>
             </div>
 
-            {/* Terminal */}
-            <div className="w-3/4 h-[500px] p-3 bg-black rounded-md font-bold overflow-scroll scroll-smooth flex-col-reverse">
-                {/* Conteudo antes do terminal */}
-                <div className="text-white whitespace-pre-line">
-                    {beforeContentTerminal}
-                </div>
-                <div className="flex gap-2 h-full">
-                    <p className="text-green-600">
-                        {ipInputValue}:
-                    </p>
-                    <textarea
-                        className="w-full resize-none bg-transparent border-none outline-none text-white h-full font-medium"
-                        rows={1}
-                        onKeyDown={enterTerminal}
-                    />
-                    {/* <input 
-                        type="text" 
-                        className="w-full border-transparent text-white outline-none font-medium"
-                    /> */}
-                </div>
-            </div>
+            
+            <Terminal terminalName={ipInputValue}/>
         </div>
     )
 }
