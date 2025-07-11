@@ -51,46 +51,67 @@ def checkping(json):
 
 # Realiza conexão individual com o switch
 net_connect_list = {}
+
+@socketio.on("connect_sw")
+def connect_sw(jsonSkt):    
+    try:
+        print(net_connect_list)
+        
+        client_id = request.sid
+        print('Client connected: ', client_id) 
+        # Verifica se chaves existem
+        if not all(key in jsonSkt for key in ["ip_sw"]):
+            emit("get_res_access_sw", {"message": "Credenciais não preenchidas corretamente", "results": ""})
+            return
+            
+        # Verificar se existem valores nas chaves
+        if not jsonSkt["ip_sw"]:
+            emit("get_res_access_sw", {"message": "Credenciais não preenchidas corretamente", "results": ""})
+            return
+        
+        sw = jsonSkt["ip_sw"]
+        if not client_id in net_connect_list:
+            net_connect = connectSwitch(sw)
+            net_connect.enable()
+            print("Conexão do usuario adicionado na lista")
+            net_connect_list[client_id] = net_connect
+        
+        # emit("get_res_access_sw", {"message": "Acesso realizado com sucesso " + client_id, "results": result})
+        emit("res_connect_sw", {"message": "Success", "access": True, "results": ""})
+    except Exception as e:
+        print("Erro ao realizar requisição: ", e)
+        emit("res_connect_sw", {"message": "Error", "access": False, "results": ""})
+    
+    
+    
 @socketio.on("free_access_sw")
 def free_access_sw(json):
-    client_id = request.sid
-    print('Client connected: ', client_id) 
-  
-    # Verifica se chaves existem
-    if not all(key in json for key in ["ip_sw", "cmdl"]):
-        emit("get_res_access_sw", {"message": "Credenciais não preenchidas corretamente", "results": ""})
-        return
+    try:
+        print(net_connect_list)
         
-    # Verificar se existem valores nas chaves
-    if not json["ip_sw"] or not json["cmdl"]:
-        emit("get_res_access_sw", {"message": "Credenciais não preenchidas corretamente", "results": ""})
-        return
+        client_id = request.sid
+        print('Client connected: ', client_id) 
     
-    sw = json["ip_sw"]
-    # is_connect = json["is_connect"]
-    cmdl = json["cmdl"]
-    
-    
-    if not client_id in net_connect_list:
-        net_connect = connectSwitch(sw)
-        print("Conexão do usuario adicionado na lista")
-        net_connect_list[client_id] = net_connect
-    
-    # Adicionar temporariamente / Adicionar individual somente para conectar
-    # if not is_connect:
-    #     net_connect_list[client_id].disconnect()
-    #     print("Switch desconectado")
-    #     emit("get_res_access_sw", {"message": "Switch desconectado com sucesso " + client_id, "results": ""})
-    #     return 
-    
-    
-    result = net_connect_list[client_id].send_command(cmdl)
-    
-    
-    # Retorna o resultado da resposta do switch
-    emit("get_res_access_sw", {"message": "Acesso realizado com sucesso " + client_id, "results": result})
-
-
+        # Verifica se chaves existem
+        if not all(key in json for key in ["cmdl"]):
+            emit("get_res_access_sw", {"message": "Credenciais não preenchidas corretamente", "results": ""})
+            return
+            
+        # Verificar se existem valores nas chaves
+        if not json["cmdl"]:
+            emit("get_res_access_sw", {"message": "Credenciais não preenchidas corretamente", "results": ""})
+            return
+        
+        # sw = json["ip_sw"]
+        # is_connect = json["is_connect"]
+        cmdl = json["cmdl"]
+        
+        result = net_connect_list[client_id].send_command(cmdl)
+        
+        emit("res_free_access_sw", {"message": "Success", "access": True, "results": result})
+    except Exception as e:
+        print("Erro ao realizar requisição: ", e)
+        emit("res_free_access_sw", {"message": "Error", "access": False, "results": result})
 
 # Handle disconnects
 @socketio.on('disconnect')
