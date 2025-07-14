@@ -4,7 +4,6 @@ import { LoadingTableIntStatus } from "../LoadingTableIntStatus/LoadingTableIntS
 
 
 export const TableIntStatus = ({results}: {results?: infoPortsListType}) => {
-    // console.log("TABLE INT STATUS: ", results);
     return (
         <>
             {results?.length ? results.map((switchData, index) => (

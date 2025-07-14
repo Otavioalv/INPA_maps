@@ -19,7 +19,6 @@ export const TerminalMode = () => {
 
     const handleIpInputValue = (e:ChangeEvent<HTMLInputElement>) => {
         setIpInputValue(e.target.value);
-        console.log(e.target.value);
     }
 
     const handleSetIsIpValid = (isVal: boolean) => {
@@ -39,7 +38,7 @@ export const TerminalMode = () => {
     }, [ipInputValue]);
 
     // Conecta no switch via socketIO
-    const fetchConnectSw = () => {
+    const fetchConnectSw = async () => {
         // valor para conectar ao switch
         setIsLoading(true);
 

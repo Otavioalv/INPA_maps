@@ -49,7 +49,6 @@ export const MapTiler = () => {
             </div>
             
             <DropContainer infoBuilding={infoBuilding}/>
-            
         </>
     )
 }

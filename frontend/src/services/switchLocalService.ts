@@ -9,6 +9,7 @@ type getInfoStatusSwTypes = {
 
 // impedir da API TRAVAR
 let isFetchingStatus:boolean = false;
+
 export const getInfoStatusSw = async ({list_sw}: getInfoStatusSwTypes): Promise<infoPortsListType> => {
     if(isFetchingStatus) {
         console.error("Requisição em andamento");

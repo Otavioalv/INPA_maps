@@ -16,8 +16,6 @@ export const ListSwitchTb = ({infoBuilding}: listSwitchTbType) => {
 
 
     const fetchInfoSw = useCallback(async () => {
-        
-        // console.log("teste FETCH INFO SWITCH: ", infoBuilding);
 
         const switchList: string[] = infoBuilding.switchs.split(",");
 

@@ -50,10 +50,15 @@ class switchController():
               
                 
                 # output_ports = []
-            return jsonify({
+            # return jsonify({
+            #     "message": "Requisição realizada com sucesso",
+            #     "results": status_sw_results
+            # }), 200
+            
+            return {
                 "message": "Requisição realizada com sucesso",
                 "results": status_sw_results
-            }), 200
+            }
 
         except Exception as e:
             print(f"Erro ao coletar portas bloqueadas: {e}")

@@ -16,7 +16,7 @@ export async function addMarker({map, markers, callMarker}: addMakerType) {
         // Marker, marca um local do mapa
         // Cria a vizualização do popUp no mapa
         const popUp = new Popup({ offset: 15 }).setHTML(popUpHTML)
-        popUp.on("open", () => {
+        popUp.on("open", async () => {
             const popUpElement = popUp.getElement();
 
             // Pega o elemento de titulo e adiciona um valor dentro do elemento
@@ -39,12 +39,9 @@ export async function addMarker({map, markers, callMarker}: addMakerType) {
 
                     itemSwElm.className = "bg-green-400 text-white p-1 px-2 rounded-sm";
                     itemSwElm.innerHTML = ipSw;
-                    console.log("ip individual: ", ipSw);
 
                     listSwElm.appendChild(itemSwElm);
                 });
-
-                console.log(ipList);
 
                 popUpSwitch.appendChild(listSwElm);
             }

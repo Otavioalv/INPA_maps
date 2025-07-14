@@ -14,7 +14,7 @@ export type addGramaLayerType = {
 export async function addGramaLayer({map, cordGram}: addGramaLayerType) {
     // Criar um laço que percorra cordGram e coloque as cordenadas
 
-    Object.entries(cordGram).forEach((crd,i) => {
+    Object.entries(cordGram).forEach(async (crd,i) => {
 
         const idSource = `${crd[0]}-${i}`
         const idLayer  = `${crd[0]}-layer-${i}`
