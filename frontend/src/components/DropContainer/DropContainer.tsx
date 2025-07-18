@@ -16,9 +16,9 @@ import { TerminalMode } from "../TerminalMode/TerminalMode";
 
 
 export const DropContainer = ({infoBuilding}: dropContainerType) => {
-    const [isActive, setIsActive] = useState(true);
-    const [isFullScreen, setIsFullScreen] = useState<boolean>(true);
-    const [isterminalMode, setIsTerminalMode] = useState<boolean>(true);
+    const [isActive, setIsActive] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+    const [isterminalMode, setIsTerminalMode] = useState<boolean>(false);
 
 
     const handleSetIsActive = () => {
@@ -40,7 +40,7 @@ export const DropContainer = ({infoBuilding}: dropContainerType) => {
 
     const getContainerHeightClass = () => {
         if (!isActive) return 'h-0 overflow-hidden';
-        if (isFullScreen) return 'h-[86vh] overflow-auto';
+        if (isFullScreen) return 'sm:h-[86vh] h-[80vh] overflow-auto';
         return 'h-[50vh] overflow-auto';
     };
     

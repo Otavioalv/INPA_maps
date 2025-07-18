@@ -1,14 +1,11 @@
 from fastapi import FastAPI
 from controller.switchController import switchController
 from pydantic import BaseModel
+import uvicorn
+import socketio
 
-#  uvicorn .\appFastApi:app --reload
-# uvicorn appFastApi:app --reload
-# uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
-
+sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = FastAPI()
-# socketio = SocketIO(app, debug=True, cors_allowed_origins="*", async_mode="eventlet")
-
 
 
 # ============== Rotas Python Flask ================
@@ -28,24 +25,19 @@ def full_status_switch(request_data: FullStatusSwRequest):
     switch_ctr = switchController()
     result = switch_ctr.get_full_status_port(request_data.model_dump())
 
-    # print(result)
     return result
 
-    # if request.method == "POST":
-    #     response = request.get_json()
-        
-    #     print(response)
-        
-    #     switch_ctr = switchController()
-    #     result = switch_ctr.get_full_status_port(response)
-        
-    #     print(result)    
-    #     return result
 
 # =================================================    
 
 
 # # ========== Websocket ============================
+
+@sio.event
+async def connect(sid, environ):
+    print(f"Client connected: {sid}")
+
+
 # @socketio.on('connect')
 # def handle_connect():
 #     client_id = request.sid
@@ -137,3 +129,11 @@ def full_status_switch(request_data: FullStatusSwRequest):
 # if __name__ == "__main__":
     # app.run(host="0.0.0.0", debug=True);
     # socketio.run(app, host="0.0.0.0", debug=True)
+    
+
+# full_app = socketio.ASGIApp(sio, app)
+    
+if __name__=="__main__":
+    # uvicorn.run("appFastApi:app", host="0.0.0.0", port=7777, lifespan="on", reload=True)
+    # uvicorn.run(app, host="0.0.0.0", reload=True)
+    uvicorn.run("appFastApi:app", host="0.0.0.0", reload=True)

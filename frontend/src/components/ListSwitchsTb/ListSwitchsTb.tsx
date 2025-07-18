@@ -39,22 +39,22 @@ export const ListSwitchTb = ({infoBuilding}: listSwitchTbType) => {
                 {infoBuilding.build_number ? (
                 <>
                     <div>
-                        <h1 className="text-3xl">
+                        <h1 className="text-3xl text-center">
                             {infoBuilding.build_name} - {infoBuilding.build_number}
                         </h1>
                     </div>
 
-                    <div className="flex flex-col gap-15 mb-16">
+                    <div className="flex flex-col gap-15 mb-16 max-w-full">
                         <TableIntStatus results={infoPorts}/>
                     </div>
                 </>
                 ) : (
                     <div className="flex flex-col items-center justify-center gap-6 text-zinc-700">
-                    <div className="flex flex-col items-center justify-center">
-                        <img src={notFoundImg} className="w-72" draggable="false" alt="Not found error"/>
-                        <h1 className=" text-6xl">Sem dados</h1>
-                    </div>
-                    <p>Clique em um local para caregar informações dos Switchs</p>
+                        <div className="flex flex-col items-center justify-center">
+                            <img src={notFoundImg} className="sm:w-72 w-60" draggable="false" alt="Not found error"/>
+                            <h1 className=" text-6xl">Sem dados</h1>
+                        </div>
+                        <p className="text-center">Clique em um local para caregar informações dos Switchs</p>
                     </div>
                 )}
             </div>

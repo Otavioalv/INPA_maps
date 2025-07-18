@@ -1,6 +1,7 @@
 from flask import jsonify
 from model.switchModel import switchModel
 from config.connectSwitch import connectSwitch
+from fastapi.responses import JSONResponse
 
 class switchController():
     
@@ -17,6 +18,13 @@ class switchController():
         
         try:
             if not response:
+                # return JSONResponse(
+                #     status_code=400,
+                #     content= {
+                #             "message": "Nenhum dado foi enviado",
+                #         "results": []
+                #     }
+                # )
                 return jsonify({
                     "message": "Nenhum dado foi enviado",
                     "results": []
@@ -50,16 +58,19 @@ class switchController():
               
                 
                 # output_ports = []
-            # return jsonify({
-            #     "message": "Requisição realizada com sucesso",
-            #     "results": status_sw_results
-            # }), 200
-            
-            return {
+                
+            return jsonify({
                 "message": "Requisição realizada com sucesso",
                 "results": status_sw_results
-            }
-
+            }), 200
+                  
+            # return JSONResponse(
+            #     status_code=200,
+            #     content={
+            #         "message": "Requisição realizada com sucesso",
+            #         "results": status_sw_results
+            #     }
+            # )
         except Exception as e:
             print(f"Erro ao coletar portas bloqueadas: {e}")
             
@@ -67,6 +78,14 @@ class switchController():
                 "message": "Erro ao efetuar requisição",
                 "results": []
             }), 500
+            
+            # return JSONResponse(
+            #     status_code=500,
+            #     content={
+            #         "message": "Erro ao efetuar requisição",
+            #         "results": []
+            #     }
+            # )
 
     # Trata todos os resultados do comando int status, e coloca em um dicionario
     def _parse_sw_output(self, text: str):     
@@ -113,6 +132,14 @@ class switchController():
     def terminal_mode(self, response):
         try:
             if not response:
+                # return JSONResponse(
+                #     status_code=400,
+                #     content={
+                #         "message": "Nenhum dado foi enviado",
+                #         "results": []    
+                #     }
+                # )
+                
                 return jsonify({
                     "message": "Nenhum dado foi enviado",
                     "results": []
@@ -121,6 +148,15 @@ class switchController():
             # print(response["ip_sw"])
             # self.swModel.sw_sh_free_mode()
             
+            
+            # return JSONResponse(
+            #     status_code=200,
+            #     content={
+            #         "message": "Requisição realizada com sucesso",
+            #         "results": "status_sw_results"
+            #     }
+            # )
+            
             return jsonify({
                 "message": "Requisição realizada com sucesso",
                 "results": "status_sw_results"
@@ -128,6 +164,14 @@ class switchController():
             
         except Exception as e: 
             print(f"Erro ao executar comnando no switch: {e}")
+            
+            # return JSONResponse(
+            #     status_code=500,
+            #     content={
+            #         "message": "Erro ao efetuar requisição",
+            #         "results": []    
+            #     }
+            # )
             
             return jsonify({
                 "message": "Erro ao efetuar requisição",

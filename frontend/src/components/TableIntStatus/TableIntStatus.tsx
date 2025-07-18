@@ -17,15 +17,15 @@ export const TableIntStatus = ({results}: {results?: infoPortsListType}) => {
                     {switchData.ports_info.length ? (
                         <table className="rounded-md overflow-hidden text-zinc-800">
                             <thead>
-                            <tr>
-                                <th className="bg-zinc-700 text-white p-2 px-5">Port</th>
-                                <th className="bg-zinc-700 text-white p-2 px-5">Name</th>
-                                <th className="bg-zinc-700 text-white p-2 px-5">Status</th>
-                                <th className="bg-zinc-700 text-white p-2 px-5">VLAN</th>
-                                <th className="bg-zinc-700 text-white p-2 px-5">Duplex</th>
-                                <th className="bg-zinc-700 text-white p-2 px-5">Speed</th>
-                                <th className="bg-zinc-700 text-white p-2 px-5">Type</th>
-                            </tr>
+                                <tr>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">Port</th>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">Name</th>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">Status</th>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">VLAN</th>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">Duplex</th>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">Speed</th>
+                                    <th className="bg-zinc-700 text-white p-2 px-5">Type</th>
+                                </tr>
                             </thead>
                             <tbody>
                             {switchData.ports_info.map((port, i) => (
