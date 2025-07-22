@@ -18,7 +18,7 @@ export const getInfoStatusSw = async ({list_sw}: getInfoStatusSwTypes): Promise<
     isFetchingStatus = true;
     
     try {
-        const res = await switchApi.post('/full_status_switch', {list_sw}) as responseAxiosInterface<infoPortsListType>;
+        const res = await switchApi.post('/switch/full_status_switch', {list_sw}) as responseAxiosInterface<infoPortsListType>;
         console.log(res.data.results);
 
         return res.data.results  
